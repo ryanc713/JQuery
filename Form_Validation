@@ -1,0 +1,61 @@
+# Validate form fields using Jquery
+
+---
+We will be using the [Jquery Form Validation Plugin](https://jqueryvalidation.org/)
+
+Or using a CDN:
+
+````
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+````
+### Basic HTML Form Markup
+You must set a unique id for each input field in the form. This allows each element to be singled out and configured individually from the other input fields. 
+````
+<form id="contactForm" action="#" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" minlength="2" required />
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+````
+### Basic Validation Snippet with Default Rules
+The minimum code you need to validate a form using the Validate plugin.
+````
+$(document).ready(function() {
+    $("#contactForm").validate();
+});
+````
+
+### Validation Rules for Input
+
+````
+$(document).ready(function() {
+$("#basic-form").validate({
+rules: {
+name : {
+required: true,
+minlength: 3
+},
+age: {
+required: true,
+number: true,
+min: 18
+},
+email: {
+required: true,
+email: true
+},
+weight: {
+required: {
+depends: function(elem) {
+return $("#age").val() > 50
+}
+},
+number: true,
+min: 0
+}
+}
+});
+});
+````
